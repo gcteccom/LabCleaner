@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12-abr-2017 22:29:04 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="TablasBD.Clientes" table="clientes" catalog="labcleaner">
+        <id name="dni" type="string">
+            <column name="dni" length="20" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="25" not-null="true" />
+        </property>
+        <property name="apellido" type="string">
+            <column name="apellido" length="25" not-null="true" />
+        </property>
+        <property name="fecha" type="date">
+            <column name="fecha" length="10" />
+        </property>
+        <property name="telefono" type="string">
+            <column name="telefono" length="15" />
+        </property>
+        <property name="movil" type="string">
+            <column name="movil" length="15" />
+        </property>
+        <property name="direccion" type="string">
+            <column name="direccion" length="40" />
+        </property>
+        <property name="poblacion" type="string">
+            <column name="poblacion" length="20" />
+        </property>
+        <property name="provincia" type="string">
+            <column name="provincia" length="20" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="40" />
+        </property>
+        <set name="facturas" table="factura" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="dni" length="20" not-null="true" />
+            </key>
+            <one-to-many class="TablasBD.Factura" />
+        </set>
+        <set name="percheros" table="perchero" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="dni" length="20" />
+            </key>
+            <one-to-many class="TablasBD.Perchero" />
+        </set>
+    </class>
+</hibernate-mapping>

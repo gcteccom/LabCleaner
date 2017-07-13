@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12-abr-2017 22:29:04 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="TablasBD.Perchero" table="perchero" catalog="labcleaner">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="clientes" class="TablasBD.Clientes" fetch="select">
+            <column name="dni" length="20" />
+        </many-to-one>
+        <property name="estado" type="boolean">
+            <column name="estado" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

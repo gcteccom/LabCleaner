@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+  <table-filter match-catalog="labcleaner" match-name="clientes"/>
+  <table-filter match-catalog="labcleaner" match-name="servicio"/>
+  <table-filter match-catalog="labcleaner" match-name="usuarios_login"/>
+  <table-filter match-catalog="labcleaner" match-name="perchero"/>
+  <table-filter match-catalog="labcleaner" match-name="factura"/>
+</hibernate-reverse-engineering>
