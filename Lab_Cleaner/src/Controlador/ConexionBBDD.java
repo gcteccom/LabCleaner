@@ -15,7 +15,7 @@ public class ConexionBBDD {
 		try{
 			//Cargamos el driver y establecemos la conexion con la base de datos
 			Class.forName("com.mysql.jdbc.Driver");
-			conexion=DriverManager.getConnection("jdbc:mysql://localhost:3306/labcleaner", "root", "jaime1984");
+			conexion=DriverManager.getConnection("jdbc:mysql://localhost:3306/labcleaner", "root", "admin");
 					
 		}catch(Exception e){
 			
