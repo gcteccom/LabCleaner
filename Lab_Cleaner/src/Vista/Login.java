@@ -32,7 +32,7 @@ public class Login extends JFrame {
 		this.setResizable(false);
 		this.setTitle("Login");
 		//Le ponemos un icono a la ventana
-		Image icono = Toolkit.getDefaultToolkit().getImage("src/Icono Lab-Cleaner.png");
+		Image icono = Toolkit.getDefaultToolkit().getImage("src/Recursos/Icono Lab-Cleaner.png");
 		this.setIconImage(icono);
 		
 		//Iniciamos el panel y lo incluimos en el JFrame
@@ -64,13 +64,13 @@ public class Login extends JFrame {
 		pass_texto.setBounds(120, 80, 100, 22);
 		panel.add(pass_texto);
 		//Imagen del candado que va al lado del campo de la contraseña
-		img_candado=new ImageIcon("src/candado.png");
+		img_candado=new ImageIcon("src/Recursos/candado.png");
 		candado=new JLabel(img_candado);
 		candado.setBounds(200, 75, 100, 30);
 		panel.add(candado);
 		
-		ImageIcon icono_aceptar=new ImageIcon("src/aceptar_16.png");
-		ImageIcon icono_salir=new ImageIcon("src/salir.png");
+		ImageIcon icono_aceptar=new ImageIcon("src/Recursos/aceptar_16.png");
+		ImageIcon icono_salir=new ImageIcon("src/Recursos/salir.png");
 				
 		//Boton de aceptar
 		aceptar=new JButton("Aceptar", icono_aceptar);

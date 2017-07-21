@@ -27,10 +27,10 @@ public class PanelControles extends JPanel {
 		this.setBackground(Color.WHITE);
 		this.setBorder(new MatteBorder(30,30,30,30,Color.WHITE));
 		
-		icono_nuevo=new ImageIcon("src/add.png");
-		icono_modificar=new ImageIcon("src/modificar.png");
-		icono_eliminar=new ImageIcon("src/eliminar.png");
-		icono_consultar=new ImageIcon("src/buscar.png");
+		icono_nuevo=new ImageIcon("src/Recursos/add.png");
+		icono_modificar=new ImageIcon("src/Recursos/modificar.png");
+		icono_eliminar=new ImageIcon("src/Recursos/eliminar.png");
+		icono_consultar=new ImageIcon("src/Recursos/buscar.png");
 		
 		//Comprobamos que se llama pulsado en el boton de clientes
 		if(origen.equals(VentanaPrincipal.Clientes)){

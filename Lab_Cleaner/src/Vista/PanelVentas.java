@@ -89,8 +89,8 @@ public class PanelVentas extends JPanel {
 		
 		JPanel panel=new JPanel();
 		
-		ImageIcon icono_buscar=new ImageIcon("src/buscar.png");
-		ImageIcon icono_borrar=new ImageIcon("src/delete.png");
+		ImageIcon icono_buscar=new ImageIcon("src/Recursos/buscar.png");
+		ImageIcon icono_borrar=new ImageIcon("src/Recursos/delete.png");
 		
 		panel.setBackground(Color.WHITE);
 		panel.setLayout(new FlowLayout(FlowLayout.LEFT, 20,20));
@@ -115,7 +115,7 @@ public class PanelVentas extends JPanel {
 		
 		JPanel panel=new JPanel();
 		
-		ImageIcon icono_cobrar=new ImageIcon("src/cobrar.png");
+		ImageIcon icono_cobrar=new ImageIcon("src/Recursos/cobrar.png");
 				
 		t_cliente=new JLabel("");
 		t_items=new JLabel("");
@@ -227,12 +227,12 @@ public class PanelVentas extends JPanel {
         });
         //Agregamos los botones del panel norte y le damos funcionalidas con la clase GestionAcciones
         
-        ImageIcon icono_buscar_servicio=new ImageIcon("src/add.png");
-        ImageIcon icono_modificar=new ImageIcon("src/modificar.png");
-        ImageIcon icono_eliminar=new ImageIcon("src/eliminar.png");
-        ImageIcon icono_entrada=new ImageIcon("src/entrada.png");
-        ImageIcon icono_salida=new ImageIcon("src/salida.png");
-        ImageIcon icono_percha=new ImageIcon("src/agregar_percha.png");
+        ImageIcon icono_buscar_servicio=new ImageIcon("src/Recursos/add.png");
+        ImageIcon icono_modificar=new ImageIcon("src/Recursos/modificar.png");
+        ImageIcon icono_eliminar=new ImageIcon("src/Recursos/eliminar.png");
+        ImageIcon icono_entrada=new ImageIcon("src/Recursos/entrada.png");
+        ImageIcon icono_salida=new ImageIcon("src/Recursos/salida.png");
+        ImageIcon icono_percha=new ImageIcon("src/Recursos/agregar_percha.png");
         
         buscar_servicio=new JButton("Agregar Servicio", icono_buscar_servicio);
 		buscar_servicio.setPreferredSize(new Dimension(140,35));

@@ -61,9 +61,9 @@ public class PanelConfiguracion extends JPanel {
 		panel_usuario.setPreferredSize(new Dimension(1900,180));
 		panel_usuario.setMaximumSize(new Dimension(1900,180));
 		//Declaramos 3 iconos que vamos a utlizar en los botones de usuarios
-		ImageIcon nuevo_usuario=new ImageIcon("src/nuevo_usuario.png");
-		ImageIcon modificar_usuario=new ImageIcon("src/modificar_usuario.png");
-		ImageIcon eliminar_usuario=new ImageIcon("src/eliminar_usuario.png");
+		ImageIcon nuevo_usuario=new ImageIcon("src/Recursos/nuevo_usuario.png");
+		ImageIcon modificar_usuario=new ImageIcon("src/Recursos/modificar_usuario.png");
+		ImageIcon eliminar_usuario=new ImageIcon("src/Recursos/eliminar_usuario.png");
 		//Iniciamos los botones y le pasamos el icono
 		nuevo=new JButton("Nuevo", nuevo_usuario);
 		modificar=new JButton("Modificar", modificar_usuario);
@@ -110,7 +110,7 @@ public class PanelConfiguracion extends JPanel {
 		panel_impresora.setBorder(new TitledBorder("Configuracion de la impresora"));
 		panel_impresora.setBackground(Color.WHITE);
 		//Declaramos el icono a utilizar en el boton
-		ImageIcon impresora=new ImageIcon("src/impresora.png");
+		ImageIcon impresora=new ImageIcon("src/Recursos/impresora.png");
 		//Iniciamos el boton y le pasamos el icono
 		imprimir=new JButton("Configurar", impresora);
 		//Configuramos el boton y le pasamos el evento
@@ -136,8 +136,8 @@ public class PanelConfiguracion extends JPanel {
 		panel_bd.setBorder(new TitledBorder("Base de datos"));
 		panel_bd.setBackground(Color.WHITE);
 		//Declaramos los iconos a utilizar en el boton
-		ImageIcon backupBD=new ImageIcon("src/backup.png");
-		ImageIcon uploadBD=new ImageIcon("src/upload.png");
+		ImageIcon backupBD=new ImageIcon("src/Recursos/backup.png");
+		ImageIcon uploadBD=new ImageIcon("src/Recursos/upload.png");
 		//Iniciamos los botones y le pasamos el icono
 		backup=new JButton("Backup", backupBD);
 		restaurar=new JButton("Restaurar", uploadBD);
@@ -172,7 +172,7 @@ public class PanelConfiguracion extends JPanel {
 		panel_grafico.setBorder(new TitledBorder("Configurar aspecto grafico"));
 		panel_grafico.setBackground(Color.WHITE);
 		//Declaramos el icono a utlizar en el boton
-		ImageIcon ventana=new ImageIcon("src/grafico.png");
+		ImageIcon ventana=new ImageIcon("src/Recursos/grafico.png");
 		//Iniciamos le boton y le pasamos el icono
 		grafico=new JButton("Configurar", ventana);
 		//Configuramos el boton y le pasamos el evento
@@ -244,7 +244,7 @@ public class PanelConfiguracion extends JPanel {
 			this.setSize(580, 480);
 			this.setLocationRelativeTo(VentanaPrincipal.getFrame());
 			this.setResizable(false);
-			this.setIconImage(new ImageIcon("src/Usuario.png").getImage());
+			this.setIconImage(new ImageIcon("src/Recursos/Usuario.png").getImage());
 			this.setLayout(new FlowLayout(FlowLayout.CENTER, 10,25));
 			
 			fuente=new Font("Arial", Font.BOLD, 16);
@@ -646,7 +646,7 @@ public class PanelConfiguracion extends JPanel {
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 20,20));
 		panel.setSize(400, 200);
 		panel.setLocationRelativeTo(VentanaPrincipal.getFrame());
-		panel.setIconImage(new ImageIcon("src/grafico.png").getImage());
+		panel.setIconImage(new ImageIcon("src/Recursos/grafico.png").getImage());
 		//Agregamos un combobox
 		JComboBox temas=new JComboBox();
 		JButton aplicar=new JButton("Aplicar");
@@ -676,7 +676,7 @@ public class PanelConfiguracion extends JPanel {
 				    SwingUtilities.updateComponentTreeUI(VentanaPrincipal.getFrame());//Actualizamos, pasamos el frame principal de la aplicacion
 				    panel.dispose();//cerramos el panel actual
 				    //Sobreescrimos el archivo que guarda el tema grafico
-				    FileWriter fichero=new FileWriter("src/Tema_grafico.txt");
+				    FileWriter fichero=new FileWriter("src/Recursos/Tema_grafico.txt");
 				    PrintWriter pw = new PrintWriter(fichero);
 				    pw.println(look);
 				    

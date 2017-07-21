@@ -26,7 +26,7 @@ public class PantallaInicial extends JWindow{
 	public PantallaInicial() {
 	  
 		//establecemos la imagen a utilizar y llamamos a los metodos encargados de pintar la ventana
-		this.imageIcon = new ImageIcon("src/Logo Lab-Cleaner.jpg");;
+		this.imageIcon = new ImageIcon("src/Recursos/Logo Lab-Cleaner.jpg");;
 		dibujaVentana();
 		setLocationRelativeTo(null);
 		progressBar.setMaximum(100);

@@ -21,5 +21,6 @@
 	<classpathentry kind="lib" path="C:/Users/jaime/Documents/Driver y Ejecutables Java/JTattoo-1.6.11.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JDatePicker"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/iText"/>
+	<classpathentry kind="lib" path="C:/Users/jaime/Desktop/Resource.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
