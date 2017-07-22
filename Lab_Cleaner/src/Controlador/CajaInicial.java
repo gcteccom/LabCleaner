@@ -58,7 +58,7 @@ public class CajaInicial extends JDialog {
 		campo_numero.setHorizontalAlignment(SwingConstants.RIGHT);
 		campo_numero.setForeground(new Color(6,120,16));
 		
-		ImageIcon icono_aceptar=new ImageIcon("src/aceptar.png");
+		ImageIcon icono_aceptar=new ImageIcon("src/Recursos/aceptar.png");
 		
 		//Boton para aceptar la operacion
 		font=new Font("Arial", Font.PLAIN, 18);

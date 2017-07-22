@@ -84,7 +84,7 @@ public class GenerarTicket {
 			//Capturamos la fecha
 			Calendar fecha = Calendar.getInstance();
 			//Capturamos la imagen que va al pie del ticket
-			Image imagen = Image.getInstance("src/PDF - LabCleaner.jpg");
+			Image imagen = Image.getInstance("src/Recursos/PDF - LabCleaner.jpg");
 			imagen.scalePercent(25);
 			imagen.setAlignment(Element.ALIGN_CENTER);
 			//Abrimos el Documento de la libreria iText, declaramos un archivo de escritura
