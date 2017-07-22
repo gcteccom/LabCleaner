@@ -2,10 +2,13 @@ package Modelo;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-import Vista.*;
+import Vista.Login;
+import Vista.PantallaInicial;
 
 
 public class LabCleaner {
@@ -18,7 +21,7 @@ public class LabCleaner {
 							
 			try{
 								
-				File archivo = new File ("src/Recursos/Tema_grafico.txt");
+				File archivo = new File (LabCleaner.class.getResource("/Recursos/Tema_grafico.txt").getFile());
 				FileReader fr = new FileReader (archivo);
 				BufferedReader br = new BufferedReader(fr);
 				String tema = br.readLine();

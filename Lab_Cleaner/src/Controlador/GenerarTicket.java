@@ -8,14 +8,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
-
-
 import javax.swing.JTable;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -28,7 +24,6 @@ import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-
 import TablasBD.Clientes;
 import TablasBD.Factura;
 import TablasBD.HibernateUtil;
@@ -84,7 +79,7 @@ public class GenerarTicket {
 			//Capturamos la fecha
 			Calendar fecha = Calendar.getInstance();
 			//Capturamos la imagen que va al pie del ticket
-			Image imagen = Image.getInstance("src/Recursos/PDF - LabCleaner.jpg");
+			Image imagen = Image.getInstance(this.getClass().getResource("/Recursos/PDF - LabCleaner.jpg"));
 			imagen.scalePercent(25);
 			imagen.setAlignment(Element.ALIGN_CENTER);
 			//Abrimos el Documento de la libreria iText, declaramos un archivo de escritura
