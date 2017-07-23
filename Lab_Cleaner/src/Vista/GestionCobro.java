@@ -12,8 +12,20 @@ import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
-import javax.swing.*;
-import javax.swing.text.MaskFormatter;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -24,6 +36,8 @@ import TablasBD.Clientes;
 import TablasBD.Factura;
 import TablasBD.HibernateUtil;
 import TablasBD.Perchero;
+
+
 //Clase que se encarga del cobro de la factura
 public class GestionCobro extends JDialog {
 	//Declaramos las variables y objetos a utilizar

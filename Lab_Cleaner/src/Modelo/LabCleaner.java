@@ -5,6 +5,9 @@ import java.awt.Toolkit;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import Vista.Login;
@@ -21,9 +24,8 @@ public class LabCleaner {
 							
 			try{
 								
-				File archivo = new File (LabCleaner.class.getResource("/Recursos/Tema_grafico.txt").getFile());
-				FileReader fr = new FileReader (archivo);
-				BufferedReader br = new BufferedReader(fr);
+				InputStream fr = LabCleaner.class.getResourceAsStream("/Recursos/Tema_grafico.txt");
+				BufferedReader br = new BufferedReader(new InputStreamReader(fr));
 				String tema = br.readLine();
 										
 				UIManager.setLookAndFeel(tema);
@@ -36,7 +38,7 @@ public class LabCleaner {
 				
 			} catch(Exception e){
 			
-				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, e.getMessage());
 			
 			}
 					

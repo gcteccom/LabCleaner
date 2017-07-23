@@ -68,8 +68,8 @@ public class Ventana_Perchero extends JDialog {
 		//Declaramos el panel con u flowlayout
 		JPanel panel_sur=new JPanel(new FlowLayout(FlowLayout.CENTER, 40,20));
 		
-		ImageIcon icono_aceptar=new ImageIcon("src/Recursos/aceptar.png");
-		ImageIcon icono_cancelar=new ImageIcon("src/Recursos/cancelar.png");
+		ImageIcon icono_aceptar=new ImageIcon(getClass().getResource("/Recursos/aceptar.png"));
+		ImageIcon icono_cancelar=new ImageIcon(getClass().getResource("/Recursos/cancelar.png"));
 		
 		//Agregamos el boton y comprobamos que la cantidad coincida con las perchas seleccionadas
 		aceptar=new JButton("Aceptar", icono_aceptar);

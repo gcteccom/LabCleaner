@@ -36,15 +36,15 @@ public class VentanaPrincipal extends JFrame{
 		this.setLayout(new BorderLayout());
 		miframe=this;
 		
-		ImageIcon icono_ventas=new ImageIcon("src/Recursos/icono_ventas.png");
-		ImageIcon icono_salidas=new ImageIcon("src/Recursos/salidas.png");
-		ImageIcon icono_perchas=new ImageIcon("src/Recursos/percha.png");
-		ImageIcon icono_clientes=new ImageIcon("src/Recursos/clientes.png");
-		ImageIcon icono_servicios=new ImageIcon("src/Recursos/servicios.png");
-		ImageIcon icono_reportes=new ImageIcon("src/Recursos/reportes.png");
-		ImageIcon icono_configuracion=new ImageIcon("src/Recursos/configuracion.png");
-		ImageIcon icono_cambiar_usuario=new ImageIcon("src/Recursos/cambiar_usuario.png");
-		ImageIcon icono_salir=new ImageIcon("src/Recursos/exit.png");
+		ImageIcon icono_ventas=new ImageIcon(getClass().getResource("/Recursos/icono_ventas.png"));
+		ImageIcon icono_salidas=new ImageIcon(getClass().getResource("/Recursos/salidas.png"));
+		ImageIcon icono_perchas=new ImageIcon(getClass().getResource("/Recursos/percha.png"));
+		ImageIcon icono_clientes=new ImageIcon(getClass().getResource("/Recursos/clientes.png"));
+		ImageIcon icono_servicios=new ImageIcon(getClass().getResource("/Recursos/servicios.png"));
+		ImageIcon icono_reportes=new ImageIcon(getClass().getResource("/Recursos/reportes.png"));
+		ImageIcon icono_configuracion=new ImageIcon(getClass().getResource("/Recursos/configuracion.png"));
+		ImageIcon icono_cambiar_usuario=new ImageIcon(getClass().getResource("/Recursos/cambiar_usuario.png"));
+		ImageIcon icono_salir=new ImageIcon(getClass().getResource("/Recursos/exit.png"));
 						
 		
 		//Establecemos el Layout del panel norte y tambien los diferentes bordes que vamos a utilizar
@@ -79,8 +79,8 @@ public class VentanaPrincipal extends JFrame{
 		}
 				
 		//Establecemos la imagen de la parte superior derecha y el espacio entre los botones y la imagen
-		img=new ImageIcon("src/Recursos/VentanaPrincipal.jpg");
-		espacio=new ImageIcon("src/Recursos/VentanaPrincipal_espacio.jpg");
+		img=new ImageIcon(getClass().getResource("/Recursos/VentanaPrincipal.jpg"));
+		espacio=new ImageIcon(getClass().getResource("/Recursos/VentanaPrincipal_espacio.jpg"));
 		logo=new JLabel(img);
 		espacio_norte=new JLabel(espacio);
 		//Lo agregamos al panel norte

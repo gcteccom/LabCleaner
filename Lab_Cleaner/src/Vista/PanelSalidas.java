@@ -92,7 +92,7 @@ public class PanelSalidas extends JPanel {
 		panel_oeste.setBackground(Color.WHITE);
 		panel_oeste.setPreferredSize(new Dimension(540,400));
 		
-		ImageIcon icono_buscar=new ImageIcon("src/Recursos/buscar.png");
+		ImageIcon icono_buscar=new ImageIcon(getClass().getResource("/Recursos/buscar.png"));
 		//Con la funcion agregarLabel añadimos las etiquetas y con agregarTexto añadimos los campos de textos		
 		agregarLabel("Ticket Nº: ", 120,35);
 		ticket=agregarTexto(150,35);
@@ -178,9 +178,9 @@ public class PanelSalidas extends JPanel {
 		panel_este.setBackground(Color.WHITE);
 		panel_este.setPreferredSize(new Dimension(200,400));
 		
-		ImageIcon icono_borrar=new ImageIcon("src/Recursos/delete.png");
-		ImageIcon icono_cobrar=new ImageIcon("src/Recursos/cobrar.png");
-		ImageIcon icono_entregar=new ImageIcon("src/Recursos/entregar.png");
+		ImageIcon icono_borrar=new ImageIcon(getClass().getResource("/Recursos/delete.png"));
+		ImageIcon icono_cobrar=new ImageIcon(getClass().getResource("/Recursos/cobrar.png"));
+		ImageIcon icono_entregar=new ImageIcon(getClass().getResource("/Recursos/entregar.png"));
 		
 		
 		//Agregamos los tres botones que contiene este panel
