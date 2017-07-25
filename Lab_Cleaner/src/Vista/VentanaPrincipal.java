@@ -91,7 +91,7 @@ public class VentanaPrincipal extends JFrame{
 		fecha.setPreferredSize(new Dimension(630,40));
 		panel_sur.add(fecha);
 		//Label del nombre de la compañia, establecemos el tamaño y lo agregamos al panel sur
-		autor=new JLabel("Lab-Cleaner, Sistema de Lavanderia - Derechos Reservados - Creador: Jaime Gómez");
+		autor=new JLabel("Lab-Cleaner, Sistema de Lavanderia - Version 1.0.0 - Creador: Jaime Gómez");
 		autor.setPreferredSize(new Dimension(830, 40));
 		panel_sur.add(autor);
 		//Creamos un objeto de la clase Accion que implementa la interfaz ActionListener
