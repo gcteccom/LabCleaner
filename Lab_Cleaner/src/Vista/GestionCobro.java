@@ -51,6 +51,7 @@ public class GestionCobro extends JDialog {
 	private JComboBox carrusel;
 	private JButton aceptar, aceptar_2;
 	private boolean resultado;
+	private Factura factura;
 	//Constructor de la clase, recibe por parametro el dni del cliente, la cantidad total de prendas, cantidad total de perchas y los percheros seleccinados
 	public GestionCobro(String dni, int cantidad_prendas, int cantidad_perchas, float total_factura, ArrayList<String> perchas_asignadas){
 		//Llamamos al constructor padre 
@@ -230,7 +231,6 @@ public class GestionCobro extends JDialog {
 			if(e.getSource().equals(aceptar)){
 				
 				generarFactura();
-				asignarPerchas();
 				GenerarTicket ticket=new GenerarTicket(id_factura, pagar_ahora.isSelected(), perchas_asignadas, efectivo_pagado.getText(),t_devuelta.getText());
 				ticket.print();
 				new VisualizarPerchas();
@@ -238,7 +238,6 @@ public class GestionCobro extends JDialog {
 			} else if(e.getSource().equals(aceptar_2)){
 				
 				generarFactura();
-				asignarPerchas();
 				GenerarTicket ticket=new GenerarTicket(id_factura, pagar_ahora.isSelected(), perchas_asignadas, efectivo_pagado.getText(),t_devuelta.getText());
 				ticket.show();
 				new VisualizarPerchas();
@@ -257,11 +256,11 @@ public class GestionCobro extends JDialog {
 		//Cargamos el cliente y la fecha actual
 		Clientes cliente=(Clientes)session.get(Clientes.class, dni);
 		java.util.Date fecha=new java.util.Date();
-		Factura factura;
+		
 		//Comprobamos si el cliente ha hecho el pago ahora o no
 		if(pagar_ahora.isSelected()){
 		
-			factura=new Factura(cliente, fecha, fecha,prendas, perchas, total, pagar_ahora.isSelected());
+			factura=new Factura(cliente, fecha, fecha, prendas, perchas, total, pagar_ahora.isSelected());
 		
 		} else {
 		
@@ -272,39 +271,32 @@ public class GestionCobro extends JDialog {
 		session.save(factura);
 		//Guardamos el numero de factura en la variable id_factura
 		id_factura=factura.getId();
-		
-		tx.commit();
+				
 		//Si todo va bien imprimimos mensaje en pantalla con el numero de factura
 		JOptionPane.showMessageDialog(this, "Factura generada correctamente con id: " + id_factura);
-				
-	}
-	//Funcion que agrega los datos a la tabla Perchero
-	private void asignarPerchas(){
+		
 		//Recorremos el arraylist
 		for(String str:perchas_asignadas){
-			//Conectamos con la base de datos
-			SessionFactory sesion=HibernateUtil.getSessionFactory();
-			Session session=sesion.openSession();
-			Transaction tx=session.beginTransaction();
-			//Cargamos al cliente
-			Clientes cliente=(Clientes)session.get(Clientes.class, dni);
-			//Capturamos la posicion en el arraylist
-			int pos=Integer.parseInt(str);
-			//Cargamos el perchero
-			Perchero percha=(Perchero)session.get(Perchero.class,pos);
-			//Establecemos los valores y guardamos
-			percha.setEstado(true);
-			percha.setClientes(cliente);
-			session.save(percha);
-			tx.commit();
-						
+					
+				//Capturamos la posicion en el arraylist
+				int pos=Integer.parseInt(str);
+				//Cargamos el perchero
+				Perchero percha=(Perchero)session.get(Perchero.class,pos);
+				//Establecemos los valores y guardamos
+				percha.setEstado(true);
+				percha.setClientes(cliente);
+				percha.setFactura(factura);
+				session.save(percha);
+				tx.commit();
+								
 		}
 		//Si todo va bien lo mostramos por pantalla
 		JOptionPane.showMessageDialog(this, "Perchas asignadas correctamente");
 		//Asigamos true a resultado para saber que todo va bien
 		resultado=true;
-						
+				
 	}
+	
 	//Funcion para cerrar la ventana actual
 	private void cerrar(){
 		

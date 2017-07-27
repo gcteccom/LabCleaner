@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import Vista.Login;
@@ -24,10 +23,10 @@ public class LabCleaner {
 							
 			try{
 								
-				InputStream fr = LabCleaner.class.getResourceAsStream("/Recursos/Tema_grafico.txt");
-				BufferedReader br = new BufferedReader(new InputStreamReader(fr));
+				FileReader fr = new FileReader("src/Recursos/Tema_grafico.txt");
+				BufferedReader br = new BufferedReader(fr);
 				String tema = br.readLine();
-										
+														
 				UIManager.setLookAndFeel(tema);
 				
 				br.close();

@@ -323,7 +323,7 @@ public class PanelSalidas extends JPanel {
 						//Establecemos el color de letras
 						listaNombres.setForeground(Color.BLUE);
 						//Creamos la consulta						
-						Query query=session.createQuery("Select p from " + Perchero.class.getName() + " p where clientes.dni='" + dni.getText() + "'");
+						Query query=session.createQuery("Select p from " + Perchero.class.getName() + " p where clientes.dni='" + dni.getText() + "' and factura.id=" + factura.getId());
 						//Guardamos datos en el ArrayList
 						perchas_asignadas=query.list();
 						//Recorresmos el array list
@@ -337,10 +337,9 @@ public class PanelSalidas extends JPanel {
 							
 							modelo.addElement("----------------------------------------------");
 							listaNombres.setForeground(Color.RED);
-							modelo.addElement("VERIFIQUE QUE EL CLIENTE NO TENGA MAS TICKET");
-							modelo.addElement("PENDIENTES, LA CANTIDAD DE PRENDAS NO COINCIDEN");
-							modelo.addElement("CON LAS POSICIONES EN EL CARRUSEL");
-														
+							modelo.addElement("ERROR AL CARGAR POSICIONES DEL CARRUSEL");
+							modelo.addElement("NO EXISTEN DATOS CON LOS CRITERIOS DE BUSQUEDA");
+																					
 						}
 						
 						tx.commit();							
@@ -423,9 +422,9 @@ public class PanelSalidas extends JPanel {
 						Perchero percha=(Perchero)session.get(Perchero.class, pch.getId());
 						percha.setEstado(false);
 						percha.setClientes(null);
+						percha.setFactura(null);
 						session.save(percha);
-						
-											
+																	
 					}
 																	
 					tx.commit();

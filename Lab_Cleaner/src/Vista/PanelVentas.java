@@ -66,9 +66,9 @@ public class PanelVentas extends JPanel {
 		panel_norte.add(buscar);
 		panel_norte.add(buscar_nuevo);
 		agregarLabel("Nombre: ");
-		nombre=agregarTexto(500,35);
+		nombre=agregarTexto(450,35);
 		agregarLabel("Apellido: ");
-		apellido=agregarTexto(500,35);
+		apellido=agregarTexto(450,35);
 		//Los campos de textos nombre y apellido no se puede modificar
 		nombre.setEditable(false);
 		apellido.setEditable(false);
@@ -125,37 +125,36 @@ public class PanelVentas extends JPanel {
 		Font font3=new Font("Arial", Font.BOLD, 16);
 				
 		panel.setBackground(Color.WHITE);
-		panel.setLayout(new FlowLayout(FlowLayout.RIGHT, 20,20));
+		panel.setLayout(new FlowLayout(FlowLayout.LEFT, 20,20));
 		panel.setBorder(new TitledBorder("Resumen de Venta"));
 		
-		t_cliente.setPreferredSize(new Dimension(900,75));
+		t_cliente.setPreferredSize(new Dimension(700,75));
 		t_cliente.setFont(font3);
 		t_cliente.setForeground(new Color(25, 148, 230));
-		t_items.setPreferredSize(new Dimension(300,35));
+		t_items.setPreferredSize(new Dimension(250,35));
 		t_items.setFont(font3);
 		t_items.setForeground(new Color(25, 148, 230));
-		t_perchas.setPreferredSize(new Dimension(300,35));
+		t_perchas.setPreferredSize(new Dimension(450,35));
 		t_perchas.setFont(font3);
 		t_perchas.setForeground(new Color(25, 148, 230));
-		
-		panel.add(t_cliente);
-		panel.add(t_items);
-		panel.add(t_perchas);
 		
 		cobrar=new JButton("<html><p>Alt + F12</p><p>COBRAR</p></html>", icono_cobrar);
 		cobrar.setPreferredSize(new Dimension(135,60));
 		cobrar.setFont(font3);
 		cobrar.setMnemonic(KeyEvent.VK_F12);
 		cobrar.addActionListener(new GestionAcciones());
-		
-		panel.add(cobrar);
-		
+				
 		total_factura=new JLabel("$ " + "00.00");
 		total_factura.setFont(font2);
 		total_factura.setForeground(new Color(25, 148, 230));
 		
+		panel.add(t_cliente);
+		panel.add(t_items);
+		panel.add(t_perchas);
+		panel.add(cobrar);
 		panel.add(total_factura);
 		
+			
 		return panel;
 	}
 	//Funcion para establecer el panel central
@@ -820,8 +819,7 @@ public class PanelVentas extends JPanel {
 			String aux_id=tabla_servicio.getValueAt(row, 0).toString();
 			String aux_desc=tabla_servicio.getValueAt(row, 1).toString();
 			String aux_precio=tabla_servicio.getValueAt(row, 2).toString();
-			
-			
+						
 			try{
 				//Pedimos al usuario la cantidad a agregar
 				String aux_cantidad=(String)JOptionPane.showInputDialog(null, "Introduzca la cantidad","1");
@@ -832,9 +830,32 @@ public class PanelVentas extends JPanel {
 					JOptionPane.showMessageDialog(dialog, "Cantidad no es correcta");
 				//Si es correcta agregamos la fila y modificamos la cantidad total	
 				} else {
+															
+					boolean isExist = false;
 					
-					modelo.addRow(new Object[]{Integer.parseInt(aux_id), aux_desc, Float.parseFloat(aux_precio), cantidad, cantidad*Float.parseFloat(aux_precio)});
-					cantidad_total+=cantidad;
+					for(int i=0; i<tabla_factura.getRowCount(); i++) {
+						
+						if(Integer.parseInt(aux_id)==((Integer)modelo.getValueAt(i, 0))) {
+							
+							int cantidadSecundario=(Integer)modelo.getValueAt(i, 3);
+							cantidad_total+=cantidad;
+							cantidad+=cantidadSecundario;
+							modelo.setValueAt(cantidad, i, 3);
+							modelo.setValueAt(cantidad*Float.parseFloat(aux_precio), i, 4);
+							isExist=true;
+							
+						}
+											
+					}
+					
+					if(!isExist) {
+						
+						modelo.addRow(new Object[]{Integer.parseInt(aux_id), aux_desc, Float.parseFloat(aux_precio), cantidad, cantidad*Float.parseFloat(aux_precio)});
+						cantidad_total+=cantidad;
+						isExist=false;
+					
+					}
+					
 					t_items.setText("Cantidad total: " + cantidad_total);
 					setTotalFactura();
 				}
@@ -846,6 +867,7 @@ public class PanelVentas extends JPanel {
 			} catch (Exception e){
 				
 				JOptionPane.showMessageDialog(dialog, "Error inesperado");
+				e.printStackTrace();
 			
 			}
 										

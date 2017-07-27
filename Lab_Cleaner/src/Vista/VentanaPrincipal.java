@@ -22,8 +22,8 @@ public class VentanaPrincipal extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private JPanel panel_norte, panel_sur, panel_oeste, panel_ventas, panel_salidas, panel_perchero, panel_reportes, panel_configuracion;
 	public static JButton Ventas, salida_factura, gestion_perchero, Clientes, Servicios, Reportes, Configuracion, salir, cambiar;
-	private ImageIcon img, espacio;
-	private JLabel logo, espacio_norte, fecha, autor;
+	private ImageIcon img;
+	private JLabel logo, fecha, autor;
 	int acceso;
 	private static JFrame miframe;
 	
@@ -80,19 +80,20 @@ public class VentanaPrincipal extends JFrame{
 				
 		//Establecemos la imagen de la parte superior derecha y el espacio entre los botones y la imagen
 		img=new ImageIcon(getClass().getResource("/Recursos/VentanaPrincipal.jpg"));
-		espacio=new ImageIcon(getClass().getResource("/Recursos/VentanaPrincipal_espacio.jpg"));
 		logo=new JLabel(img);
-		espacio_norte=new JLabel(espacio);
+		//Para crear separacion horizontal entre los botones y el logo
+		Component horizontalGlue = Box.createHorizontalGlue();
+		horizontalGlue.setPreferredSize(new Dimension(150, 0));
 		//Lo agregamos al panel norte
-		panel_norte.add(espacio_norte);
+		panel_norte.add(horizontalGlue);
 		panel_norte.add(logo);
 		//Iniciamos el Objeto Relog, le damo tamaño y lo agregamos al panel sur
 		fecha=new Reloj();
-		fecha.setPreferredSize(new Dimension(630,40));
+		fecha.setPreferredSize(new Dimension(650,40));
 		panel_sur.add(fecha);
 		//Label del nombre de la compañia, establecemos el tamaño y lo agregamos al panel sur
 		autor=new JLabel("Lab-Cleaner, Sistema de Lavanderia - Version 1.0.0 - Creador: Jaime Gómez");
-		autor.setPreferredSize(new Dimension(830, 40));
+		autor.setPreferredSize(new Dimension(700, 40));
 		panel_sur.add(autor);
 		//Creamos un objeto de la clase Accion que implementa la interfaz ActionListener
 		Accion botonact=new Accion();

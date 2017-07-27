@@ -676,7 +676,7 @@ public class PanelConfiguracion extends JPanel {
 				    SwingUtilities.updateComponentTreeUI(VentanaPrincipal.getFrame());//Actualizamos, pasamos el frame principal de la aplicacion
 				    panel.dispose();//cerramos el panel actual
 				    //Sobreescrimos el archivo que guarda el tema grafico
-				    FileWriter fichero=new FileWriter(getClass().getResource("/Recursos/Tema_grafico.txt").getFile());
+				    FileWriter fichero=new FileWriter("src/Recursos/Tema_grafico.txt");
 				    PrintWriter pw = new PrintWriter(fichero);
 				    pw.println(look);
 				    
