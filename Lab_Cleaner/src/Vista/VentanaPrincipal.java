@@ -16,6 +16,7 @@ import TablasBD.Factura;
 import TablasBD.HibernateUtil;
 
 //Clase encargada de llevar la gestion de la ventana principal, hereda de JFrame
+@SuppressWarnings("rawtypes")
 public class VentanaPrincipal extends JFrame{
 	
 	//Declaramos todas las variables a utilizar para tener amplitud de campo
@@ -28,6 +29,7 @@ public class VentanaPrincipal extends JFrame{
 	private static JFrame miframe;
 	
 	//Constructor de la clase, recibe un entero por parametro que indica el tipo de acceso
+	
 	public VentanaPrincipal(int acceso){
 		//establecemos datos de la ventana
 		this.acceso=acceso;
@@ -92,7 +94,7 @@ public class VentanaPrincipal extends JFrame{
 		fecha.setPreferredSize(new Dimension(650,40));
 		panel_sur.add(fecha);
 		//Label del nombre de la compañia, establecemos el tamaño y lo agregamos al panel sur
-		autor=new JLabel("Lab-Cleaner, Sistema de Lavanderia - Version 1.0.0 - Creador: Jaime Gómez");
+		autor=new JLabel("Lab-Cleaner, Sistema de Lavanderia - Version 1.0.1 - Creador: Jaime Gómez");
 		autor.setPreferredSize(new Dimension(700, 40));
 		panel_sur.add(autor);
 		//Creamos un objeto de la clase Accion que implementa la interfaz ActionListener

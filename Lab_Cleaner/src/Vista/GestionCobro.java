@@ -39,6 +39,7 @@ import TablasBD.Perchero;
 
 
 //Clase que se encarga del cobro de la factura
+@SuppressWarnings({"serial", "rawtypes", "unchecked"})
 public class GestionCobro extends JDialog {
 	//Declaramos las variables y objetos a utilizar
 	private String dni;
@@ -287,9 +288,10 @@ public class GestionCobro extends JDialog {
 				percha.setClientes(cliente);
 				percha.setFactura(factura);
 				session.save(percha);
-				tx.commit();
-								
+												
 		}
+		
+		tx.commit();
 		//Si todo va bien lo mostramos por pantalla
 		JOptionPane.showMessageDialog(this, "Perchas asignadas correctamente");
 		//Asigamos true a resultado para saber que todo va bien
@@ -324,7 +326,6 @@ public class GestionCobro extends JDialog {
 			//Llamamos al constructor padre para establecer los valores del JDialog
 			super(VentanaPrincipal.getFrame(), "Carrusel", true);
 			//Configuramos la ventana
-			Font fuente=new Font("Serif", Font.BOLD, 24);
 			this.setSize(500, 400);
 			this.setLayout(new BorderLayout());
 			this.setLocationRelativeTo(VentanaPrincipal.getFrame());

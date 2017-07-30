@@ -14,7 +14,19 @@ import java.awt.event.MouseEvent;
 import java.util.Date;
 import java.util.List;
 
-import javax.swing.*;
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -29,8 +41,8 @@ import TablasBD.Clientes;
 import TablasBD.Factura;
 import TablasBD.HibernateUtil;
 import TablasBD.Perchero;
-import TablasBD.Servicio;
 //Clase encargada de dar salida a los tickets
+@SuppressWarnings({"serial", "unchecked"})
 public class PanelSalidas extends JPanel {
 	
 	//Declaramos todas las variables a utilizar
@@ -445,7 +457,6 @@ public class PanelSalidas extends JPanel {
 		private JTable tabla_factura=null;
 		private DefaultTableModel modelo = null;
 	    private JScrollPane desplazamiento = null;
-	    private JButton aceptar;
 	    Font font;
 	    List<Factura> listado;
 	    //Cnstructor de la clase				

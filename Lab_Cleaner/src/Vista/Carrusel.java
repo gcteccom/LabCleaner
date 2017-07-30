@@ -3,13 +3,11 @@ package Vista;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -18,6 +16,7 @@ import TablasBD.HibernateUtil;
 import TablasBD.Perchero;
 
 //Clase para ver el estado del carrusel, las posiciones ocupadas o no
+@SuppressWarnings("serial")
 public class Carrusel extends JPanel {
 	//Declaramos el array de las etiquetas y las columnas y filas
 	private static int COLUMNAS=25;

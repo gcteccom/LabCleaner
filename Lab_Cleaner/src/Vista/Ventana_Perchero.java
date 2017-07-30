@@ -12,6 +12,7 @@ import TablasBD.HibernateUtil;
 import TablasBD.Perchero;
 
 //Clase encargada de la gestion del carrusel
+@SuppressWarnings("serial")
 public class Ventana_Perchero extends JDialog {
 	//Declaramos todas las variables a utilizar
 	private int cantidad, resultado;
@@ -145,6 +146,8 @@ public class Ventana_Perchero extends JDialog {
 		}
 		//Agregamos el panel al JDialog		
 		this.add(panel_central, BorderLayout.CENTER);
+		
+		tx.commit();
 				
 	}
 	//Funcion que devuelve el total de perchas seleccionadas

@@ -236,6 +236,8 @@ public class GenerarTicket {
 			ficheroPdf.close();
 			//Abrimos archivo
 			
+			tx.commit();
+			
 					
 		} catch (FileNotFoundException e) {
 			 
@@ -269,6 +271,7 @@ public class GenerarTicket {
 		
 	}
 	
+	@SuppressWarnings("unused")
 	public void print(){
 		
 		PrinterJob job = PrinterJob.getPrinterJob();

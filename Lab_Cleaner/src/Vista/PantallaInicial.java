@@ -1,15 +1,13 @@
 package Vista;
 
 import javax.swing.*;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-
 import TablasBD.HibernateUtil;
-
 import java.awt.*;
 
 //Esta es la clase para presentar la pantalla iniciar de la aplicacion
+@SuppressWarnings("unused")
 public class PantallaInicial extends JWindow{
 	
 	

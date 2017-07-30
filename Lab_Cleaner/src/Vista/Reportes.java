@@ -10,13 +10,18 @@ import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.text.NumberFormat;
 import java.util.List;
 import java.util.Properties;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -30,15 +35,14 @@ import org.jdatepicker.impl.DateComponentFormatter;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.SqlDateModel;
-import org.jdatepicker.impl.UtilDateModel;
 
 import Controlador.BalanceGeneral;
 import Controlador.GenerarBalance;
 import Controlador.ReporteFecha;
 import TablasBD.Factura;
 import TablasBD.HibernateUtil;
-import TablasBD.Servicio;
 //Clase Reportes, encargada de realizar de llevar el balance y realizar reportes
+@SuppressWarnings({"serial", "rawtypes", "unchecked"})
 public class Reportes extends JPanel {
 	//Declaramos todas las variables a utilizar
 	private JPanel panel_norte, panel_central;
@@ -607,6 +611,8 @@ public class Reportes extends JPanel {
 		Query query = session.createQuery(consulta);
 		
 		List servicios=query.list();
+		
+		tx.commit();
 				
 		return servicios;
 				

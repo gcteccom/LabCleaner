@@ -1,6 +1,5 @@
 package Vista;
 
-import java.awt.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -8,12 +7,30 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PrinterJob;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
-import javax.swing.*;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -23,16 +40,16 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.exception.ConstraintViolationException;
 
-import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
-
 import TablasBD.HibernateUtil;
 import TablasBD.UsuariosLogin;
 
+
+@SuppressWarnings({ "rawtypes", "unchecked", "serial" })
 //Clase para configurar el panel de configuracion
 public class PanelConfiguracion extends JPanel {
 	//Declaramos los distintos paneles a utilizar y los botones
 	private JPanel panel_usuario, panel_impresora, panel_grafico, panel_bd;
-	private JButton nuevo, modificar, eliminar, imprimir, backup, restaurar, grafico;
+	private JButton nuevo, modificar, eliminar, imprimir, backup, grafico, rutas;
 	//Constructor de la clase
 	public PanelConfiguracion(){
 		//Desactivamos y activamos los botones correspondientes
@@ -133,31 +150,34 @@ public class PanelConfiguracion extends JPanel {
 		panel_bd.setLayout(new BoxLayout(panel_bd, BoxLayout.X_AXIS));
 		panel_bd.setPreferredSize(new Dimension(1900,180));
 		panel_bd.setMaximumSize(new Dimension(1900,180));
-		panel_bd.setBorder(new TitledBorder("Base de datos"));
+		panel_bd.setBorder(new TitledBorder("Configuracion de rutas y Base de datos"));
 		panel_bd.setBackground(Color.WHITE);
 		//Declaramos los iconos a utilizar en el boton
 		ImageIcon backupBD=new ImageIcon(getClass().getResource("/Recursos/backup.png"));
-		ImageIcon uploadBD=new ImageIcon(getClass().getResource("/Recursos/upload.png"));
+		ImageIcon rutasBD=new ImageIcon(getClass().getResource("/Recursos/carpeta.png"));
 		//Iniciamos los botones y le pasamos el icono
 		backup=new JButton("Backup", backupBD);
-		restaurar=new JButton("Restaurar", uploadBD);
 		//Configuramos los botones y le pasamos el evento
 		backup.setMaximumSize(new Dimension(100,80));
 		backup.setPreferredSize(new Dimension(100,80));
 		backup.setVerticalTextPosition(SwingConstants.BOTTOM);
 		backup.setHorizontalTextPosition(SwingConstants.CENTER);
 		backup.addActionListener(new GestionBotones());
-			
-		restaurar.setMaximumSize(new Dimension(100,80));
-		restaurar.setPreferredSize(new Dimension(100,80));
-		restaurar.setVerticalTextPosition(SwingConstants.BOTTOM);
-		restaurar.setHorizontalTextPosition(SwingConstants.CENTER);
-		restaurar.addActionListener(new GestionBotones());
+		
+		rutas=new JButton("Carpetas", rutasBD);
+		//Configuramos los botones y le pasamos el evento
+		rutas.setMaximumSize(new Dimension(100,80));
+		rutas.setPreferredSize(new Dimension(100,80));
+		rutas.setVerticalTextPosition(SwingConstants.BOTTOM);
+		rutas.setHorizontalTextPosition(SwingConstants.CENTER);
+		rutas.addActionListener(new GestionBotones());
+		
+				
 		//Agregamos los botones al panel y creamos espacio entre ellos
 		panel_bd.add(Box.createHorizontalStrut(35));
 		panel_bd.add(backup);
 		panel_bd.add(Box.createHorizontalStrut(35));
-		panel_bd.add(restaurar);
+		panel_bd.add(rutas);
 		//Agregamos el panel al panel principal
 		this.add(panel_bd);
 				
@@ -216,12 +236,8 @@ public class PanelConfiguracion extends JPanel {
 			} else if(e.getSource().equals(backup)){
 				
 				generarBackUp();
-			//Si pulsamos en restaurar, llamamos a la funcion que realiza la restauracion	
-			} else if(e.getSource().equals(restaurar)){
-				
-				restaurarBD();
-				
-			}
+			
+			} 
 						
 		}
 				
@@ -447,7 +463,7 @@ public class PanelConfiguracion extends JPanel {
 			tipo_acceso.setFont(fuente);
 			//agregamos el boton
 			agregar=new JButton("Modificar");
-			agregar.setPreferredSize(new Dimension(100,60));
+			agregar.setPreferredSize(new Dimension(120,60));
 			agregar.setFont(fuente);
 			//Agregamos al combobox de usuarios funcionalidad
 			usuario_elegir.addActionListener(new ActionListener(){
@@ -624,6 +640,7 @@ public class PanelConfiguracion extends JPanel {
 			this.dispose();
 		}
 		//Funcion que devuelve una lista de los usuarios
+		
 		private List<UsuariosLogin> getList(String consulta){
 			
 			SessionFactory sesion=HibernateUtil.getSessionFactory();
@@ -633,6 +650,8 @@ public class PanelConfiguracion extends JPanel {
 			Query query = session.createQuery(consulta);
 			
 			List<UsuariosLogin> usuarios=query.list();
+			
+			tx.commit();
 					
 			return usuarios;
 					
@@ -640,6 +659,7 @@ public class PanelConfiguracion extends JPanel {
 					
 	}
 	//Funcion para establecer el tema grafico
+	
 	private void setLookandFeel(){
 		//Creamos un panel de dialogo y lo configuramos
 		JDialog panel=new JDialog(VentanaPrincipal.getFrame(), "Cambiar aspecto grafico", true);
@@ -676,12 +696,13 @@ public class PanelConfiguracion extends JPanel {
 				    SwingUtilities.updateComponentTreeUI(VentanaPrincipal.getFrame());//Actualizamos, pasamos el frame principal de la aplicacion
 				    panel.dispose();//cerramos el panel actual
 				    //Sobreescrimos el archivo que guarda el tema grafico
-				    FileWriter fichero=new FileWriter("src/Recursos/Tema_grafico.txt");
-				    PrintWriter pw = new PrintWriter(fichero);
-				    pw.println(look);
-				    
-				    pw.close();
-				    
+				    Properties prop = new Properties();
+				    prop.load(new FileInputStream("src/Recursos.properties"));
+				    prop.setProperty("tema.grafico", look);
+				    OutputStream os = new FileOutputStream("src/Recursos.properties");
+				    prop.store(os, null);
+				    os.close();
+				    				    				    
 				    
 				} catch (Exception e){
 				        
@@ -721,7 +742,7 @@ public class PanelConfiguracion extends JPanel {
 		
 	                Runtime runtime = Runtime.getRuntime();//Declaramos un objeto de runtime para ejecutar el comando
 		            //Comando completo a ejecutar    
-	                String pathDB = "C:/Program Files/MySQL/MySQL Server 5.7/bin/mysqldump.exe -uroot -pjaime1984 --add-drop-database -B labcleaner -r" + path;
+	                String pathDB = "C:/Program Files/MySQL/MySQL Server 5.7/bin/mysqldump.exe -uroot -padmin --add-drop-database -B labcleaner -r" + path;
 	                Process child = runtime.exec(pathDB);//ejecutamos 
 	                //esperamos que termine el proceso
 	                int process=child.waitFor();
@@ -746,7 +767,7 @@ public class PanelConfiguracion extends JPanel {
            		
 	}
 	//Funcion para restaurar la base de datos
-	private void restaurarBD(){
+	/*private void restaurarBD(){
 		//Declaramos las variables y los componentes
 		int op;
 		JFileChooser fileChooser = new JFileChooser();
@@ -789,6 +810,6 @@ public class PanelConfiguracion extends JPanel {
                  	
         }
 				
-	}
+	}*/
 	
 }

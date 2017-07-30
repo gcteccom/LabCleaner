@@ -128,6 +128,7 @@ public class GenerarBalance {
 		
 	}
 	//Funcion que llama a imprimir el documento
+	@SuppressWarnings("unused")
 	public void print(){
 		//Instacionamos la clase Printer para que nos de a elegir la impresora
 		PrinterJob job = PrinterJob.getPrinterJob();

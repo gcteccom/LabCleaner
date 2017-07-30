@@ -20,6 +20,7 @@ import TablasBD.HibernateUtil;
 import Vista.VentanaPrincipal;
 
 //Clase para introducir la cantidad inicial de la caja, cuando la aplicacion de abre por primera vez en el dia
+@SuppressWarnings("serial")
 public class CajaInicial extends JDialog {
 	//Declaramos las variables a utilizar
 	private JLabel titulo;

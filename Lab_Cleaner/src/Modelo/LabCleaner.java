@@ -2,11 +2,9 @@ package Modelo;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.util.Properties;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import Vista.Login;
@@ -19,17 +17,19 @@ public class LabCleaner {
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		
+		Properties prop = new Properties();
+		
 		if(screenSize.getHeight() == 1080 && screenSize.getWidth() == 1920) {
 							
 			try{
 								
-				FileReader fr = new FileReader("src/Recursos/Tema_grafico.txt");
-				BufferedReader br = new BufferedReader(fr);
-				String tema = br.readLine();
-														
-				UIManager.setLookAndFeel(tema);
+				InputStream is = new FileInputStream("src/Recursos.properties");
+				prop.load(is);
+																						
+				UIManager.setLookAndFeel(prop.getProperty("tema.grafico"));
 				
-				br.close();
+				is.close();
+								
 						
 			} catch(ClassNotFoundException e){
 				

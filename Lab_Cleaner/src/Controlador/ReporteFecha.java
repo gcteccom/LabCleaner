@@ -28,6 +28,7 @@ import TablasBD.Factura;
 import TablasBD.HibernateUtil;
 import Vista.VentanaPrincipal;
 //Clase encargada de generar el reporte por fechas
+@SuppressWarnings("unchecked")
 public class ReporteFecha {
 	//Declaramos las variables a utilizar
 	private Date fecha_desde, fecha_hasta;
@@ -172,6 +173,7 @@ public class ReporteFecha {
 				
 	}
 	//Funcion que devuelve un List de factura
+	
 	private List<Factura> getList(String consulta){
 		
 		SessionFactory sesion=HibernateUtil.getSessionFactory();
@@ -181,6 +183,8 @@ public class ReporteFecha {
 		Query query = session.createQuery(consulta);
 		
 		List<Factura> listado=query.list();
+		
+		tx.commit();
 				
 		return listado;
 				

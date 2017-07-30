@@ -7,13 +7,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
 import javax.swing.JTable;
-
-
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
-
 import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -139,6 +136,7 @@ public class BalanceGeneral {
 		
 	}
 	//Funcion para imprimir el archivo generado
+	@SuppressWarnings("unused")
 	public void print(){
 		
 		PrinterJob job = PrinterJob.getPrinterJob();
