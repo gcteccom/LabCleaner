@@ -3,11 +3,15 @@ package Controlador;
 import java.awt.Desktop;
 import java.awt.print.PrinterJob;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Properties;
+
 import javax.swing.JTable;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -39,6 +43,7 @@ public class GenerarTicket {
 	private ArrayList<String> perchas_asignadas; 
 	private String pagado, devuelta;
 	private Clientes cliente;
+	private Properties prop;
 	//Contructor de la clase, recibe el id de la factura, si esta pagada o no, el arraylist de las perchas asignandas, el monto pagado y el monto devuelto
 	public GenerarTicket(int id_factura, boolean estado, ArrayList<String> perchas_asignadas, String pagado, String devuelta){
 		//Iniciamos las variables y llamamos a la clase estatica getDatosTabla para saber las descripcion de los servicios
@@ -56,6 +61,10 @@ public class GenerarTicket {
 	public void generarTicket(){
 				
 		try {
+			//Cargamos las propiedades
+			prop = new Properties();
+			InputStream is = new FileInputStream("src/Recursos.properties");
+			prop.load(is);
 			//Conectamos con la base de datos
 			SessionFactory sesion=HibernateUtil.getSessionFactory();
 			Session session=sesion.openSession();
@@ -84,7 +93,7 @@ public class GenerarTicket {
 			imagen.setAlignment(Element.ALIGN_CENTER);
 			//Abrimos el Documento de la libreria iText, declaramos un archivo de escritura
 			Document ticket=new Document(pagesize, 5,5,5,5);
-			FileOutputStream ficheroPdf = new FileOutputStream("src/Tickets/" + id_factura + "-" + cliente.getDni() + ".pdf");
+			FileOutputStream ficheroPdf = new FileOutputStream(prop.getProperty("ruta.ticket") + "/Tickets/" + id_factura + "-" + cliente.getDni() + ".pdf");
 			PdfWriter.getInstance(ticket,ficheroPdf).setInitialLeading(20);
 			//Abrimos archivo
 			ticket.open();
@@ -259,7 +268,7 @@ public class GenerarTicket {
 				
 	    try {
 	    	
-	    	File path = new File ("src/Tickets/" + id_factura + "-" + cliente.getDni() + ".pdf");
+	    	File path = new File (prop.getProperty("ruta.ticket") + "/Tickets/" + id_factura + "-" + cliente.getDni() + ".pdf");
 			Desktop.getDesktop().open(path);
 		
 	    } catch (IOException e) {
@@ -279,7 +288,7 @@ public class GenerarTicket {
 	    String impresora=job.getPrintService().getName();
 	 
 	    Desktop desktop = Desktop.getDesktop();
-	    File fichero = new File("src/Tickets/" + id_factura + "-" + cliente.getDni() + ".pdf");
+	    File fichero = new File(prop.getProperty("ruta.ticket") + "/Tickets/" + id_factura + "-" + cliente.getDni() + ".pdf");
 	      
 	    if (desktop.isSupported(Desktop.Action.PRINT)){
 	    	

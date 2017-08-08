@@ -2,11 +2,14 @@ package Controlador;
 
 import java.awt.Desktop;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Properties;
 
 import javax.swing.JOptionPane;
 
@@ -37,6 +40,7 @@ public class ReporteFecha {
 	private String nombre_archivo;
 	private PdfPTable tabla;
 	private float total_pvp;
+	private Properties prop;
 	//Constructor de la clase, recibe las dos fecha por parametro
 	public ReporteFecha(Date fecha_desde, Date fecha_hasta){
 		
@@ -54,6 +58,10 @@ public class ReporteFecha {
 		listado=getList("select p from " + Factura.class.getName() + " p where fecha>='" + fecha_desde + "' and fecha<='" + fecha_hasta + "' and dni!='nulo'");
 		
 		try{
+			//Cargamos las propiedades
+			prop = new Properties();
+			InputStream is = new FileInputStream("src/Recursos.properties");
+			prop.load(is);
 			//Establecemos las fuentes a utilizar
 			Font titulo=new Font(FontFamily.TIMES_ROMAN, 18);
 			Font cuerpo=new Font(FontFamily.HELVETICA, 9);
@@ -78,7 +86,7 @@ public class ReporteFecha {
 	        //Abrimos documento con tamaño estandar
 			Document ticket=new Document();
 			//abrimos el flujo y creamos el archivo 
-			FileOutputStream ficheroPdf = new FileOutputStream("src/Reportes/Reportes por fecha/" +  nombre_archivo +  ".pdf");
+			FileOutputStream ficheroPdf = new FileOutputStream(prop.getProperty("reporte.fecha") + "/Reportes por fecha/" +  nombre_archivo +  ".pdf");
 			PdfWriter.getInstance(ticket,ficheroPdf).setInitialLeading(20);
 			//Abrimos documento
 			ticket.open();
@@ -162,7 +170,7 @@ public class ReporteFecha {
 		
 	    try {
 	    	
-	    	File path = new File ("src/Reportes/Reportes por fecha/" +  nombre_archivo +  ".pdf");
+	    	File path = new File (prop.getProperty("reporte.fecha") + "/Reportes por fecha/" +  nombre_archivo +  ".pdf");
 			Desktop.getDesktop().open(path);
 		
 	    } catch (IOException e) {

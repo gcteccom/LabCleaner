@@ -129,7 +129,7 @@ public class CajaInicial extends JDialog {
 				//Declaramos la fecha actual
 				Date fecha=new Date();
 				//Cargamos el cliente
-				Clientes cliente=(Clientes)session.get(Clientes.class, "nulo");
+				Clientes cliente=(Clientes)session.get(Clientes.class, "Caja");
 				//Introducimos los datos de la operacion
 				Factura factura=new Factura(cliente,fecha,fecha,fecha,0,0,total,true);
 				//Guardamos cambios

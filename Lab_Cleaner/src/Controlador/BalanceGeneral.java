@@ -3,9 +3,13 @@ package Controlador;
 import java.awt.Desktop;
 import java.awt.print.PrinterJob;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Calendar;
+import java.util.Properties;
+
 import javax.swing.JTable;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
@@ -15,12 +19,13 @@ import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-//Clase que genera el pdg del balance general
+//Clase que genera el pdf del balance general
 public class BalanceGeneral {
 	//Declaramos las variables a utilizar
 	private JTable tabla_balance;
 	int dia, mes, ano;
 	private PdfPTable tabla;
+	private Properties prop;
 	//Constructor de la clase, recibe la tabla con los valores
 	public BalanceGeneral(JTable tabla_balance){
 		
@@ -34,6 +39,9 @@ public class BalanceGeneral {
 	private void generarReporte(){
 		
 		try{
+			prop = new Properties();
+			InputStream is = new FileInputStream("src/Recursos.properties");
+			prop.load(is);
 			//Declaramos la fuente a utilizar
 			Font titulo=new Font(FontFamily.TIMES_ROMAN, 18);
 			Font cuerpo=new Font(FontFamily.HELVETICA, 9);
@@ -56,7 +64,7 @@ public class BalanceGeneral {
 			//Creamos documento con el tamaño estandar					
 			Document ticket=new Document();
 			//Abrimos flujo y creamos el archivo
-			FileOutputStream ficheroPdf = new FileOutputStream("src/Reportes/Balance General/Balance General " + dia + "-" + mes + "-" + ano +  ".pdf");
+			FileOutputStream ficheroPdf = new FileOutputStream(prop.getProperty("balance.general") + "/Balance General/" + dia + "-" + mes + "-" + ano +  ".pdf");
 			PdfWriter.getInstance(ticket,ficheroPdf).setInitialLeading(20);
 			//Abrimos documento
 			ticket.open();
@@ -124,7 +132,7 @@ public class BalanceGeneral {
 		
 	    try {
 	    	
-	    	File path = new File ("src/Reportes/Balance General/Balance General " + dia + "-" + mes + "-" + ano +  ".pdf");
+	    	File path = new File (prop.getProperty("balance.general") + "/Balance General/" + dia + "-" + mes + "-" + ano +  ".pdf");
 			Desktop.getDesktop().open(path);
 		
 	    } catch (IOException e) {
@@ -144,7 +152,7 @@ public class BalanceGeneral {
 	    String impresora=job.getPrintService().getName();
 	 
 	    Desktop desktop = Desktop.getDesktop();
-	    File fichero = new File("src/Reportes/Balance General/Balance General " + dia + "-" + mes + "-" + ano +  ".pdf");
+	    File fichero = new File(prop.getProperty("balance.general") + "/Balance General/" + dia + "-" + mes + "-" + ano +  ".pdf");
 	      
 	    if (desktop.isSupported(Desktop.Action.PRINT)){
 	    	

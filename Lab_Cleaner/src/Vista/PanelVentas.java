@@ -142,7 +142,7 @@ public class PanelVentas extends JPanel {
 		t_items=new JLabel("");
 		t_perchas=new JLabel("");
 		
-		Font font2=new Font("Arial", Font.BOLD, 30);
+		Font font2=new Font("Arial Narrow", Font.BOLD, 44);
 		Font font3=new Font("Arial", Font.BOLD, 16);
 				
 		panel.setBackground(Color.WHITE);
@@ -167,7 +167,7 @@ public class PanelVentas extends JPanel {
 				
 		total_factura=new JLabel("$ " + "00.00");
 		total_factura.setFont(font2);
-		total_factura.setForeground(new Color(25, 148, 230));
+		total_factura.setForeground(new Color(53, 143, 46));
 		
 		panel.add(t_cliente);
 		panel.add(t_items);

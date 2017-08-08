@@ -403,7 +403,7 @@ public class Reportes extends JPanel {
 			Session session=sesion.openSession();
 			Transaction tx=session.beginTransaction();
 	        //Capturamos el listado de factura con la fecha actual
-	        factura=getList("select p.id from " + Factura.class.getName() + " p where fecha='" + fecha_actual + "'");
+	        factura=getList("select p.id from " + Factura.class.getName() + " p where fecha='" + fecha_actual + "' and dni<>'Caja'");
 			//Recorremos con un array el listado y vamos cargado las facturas	        
 			for(int i=0;i<factura.size();i++){
 				//Cargamos la factura con el id recojido						

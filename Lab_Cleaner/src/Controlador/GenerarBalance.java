@@ -3,9 +3,12 @@ package Controlador;
 import java.awt.Desktop;
 import java.awt.print.PrinterJob;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Calendar;
+import java.util.Properties;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
@@ -17,8 +20,9 @@ import com.itextpdf.text.pdf.PdfWriter;
 //Clase para general el balance del dia
 public class GenerarBalance {
 	//Declaramos las variables a utilizar
-	float entrada, salida, contado, credito;
-	int cantidad_contado, cantidad_credito, dia, mes, ano;
+	private float entrada, salida, contado, credito;
+	private int cantidad_contado, cantidad_credito, dia, mes, ano;
+	private Properties prop;
 	//Constructor de la clase
 	public GenerarBalance(float entrada, float salida, float contado, float credito, int cantidad_contado, int cantidad_credito){
 		
@@ -36,6 +40,10 @@ public class GenerarBalance {
 	private void generarBalance(){
 		
 		try{
+			//Cargamos las propiedades
+			prop = new Properties();
+			InputStream is = new FileInputStream("src/Recursos.properties");
+			prop.load(is);
 			//Declaramos las fuentes a utilizar
 			Font titulo=new Font(FontFamily.TIMES_ROMAN, 12);
 			Font cuerpo=new Font(FontFamily.COURIER, 9);
@@ -60,7 +68,7 @@ public class GenerarBalance {
 			//Creamos un documento de la libreria iText, le pasamos el tamaño de pagina y los margenes					
 			Document ticket=new Document(pagesize, 5,5,5,5);
 			//Creamos flujo y el nombre del fichero
-			FileOutputStream ficheroPdf = new FileOutputStream("src/Reportes/Balance del dia/Balance del dia " + dia + "-" + mes + "-" + ano +  ".pdf");
+			FileOutputStream ficheroPdf = new FileOutputStream(prop.getProperty("balance.dia") + "/Balance del dia/" + dia + "-" + mes + "-" + ano +  ".pdf");
 			PdfWriter.getInstance(ticket,ficheroPdf).setInitialLeading(20);
 			//Abrimos documento
 			ticket.open();
@@ -116,7 +124,7 @@ public class GenerarBalance {
 		
 	    try {
 	    	
-	    	File path = new File ("src/Reportes/Balance del dia/Balance del dia " + dia + "-" + mes + "-" + ano +  ".pdf");
+	    	File path = new File (prop.getProperty("balance.dia") + "/Balance del dia/" + dia + "-" + mes + "-" + ano +  ".pdf");
 			Desktop.getDesktop().open(path);
 		
 	    } catch (IOException e) {
@@ -136,7 +144,7 @@ public class GenerarBalance {
 	    String impresora=job.getPrintService().getName();
 	    //Abrimos el fichero
 	    Desktop desktop = Desktop.getDesktop();
-	    File fichero = new File("src/Reportes/Balance del dia/Balance del dia " + dia + "-" + mes + "-" + ano +  ".pdf");
+	    File fichero = new File(prop.getProperty("balance.dia") + "/Balance del dia/" + dia + "-" + mes + "-" + ano +  ".pdf");
 	    //Si se puede imprimir, abrimos el proceso  
 	    if (desktop.isSupported(Desktop.Action.PRINT)){
 	    	

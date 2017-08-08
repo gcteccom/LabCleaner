@@ -5,9 +5,11 @@ import java.awt.Toolkit;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
+
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-import Vista.Login;
+
+import Vista.LoginAlternativo;
 import Vista.PantallaInicial;
 
 
@@ -42,7 +44,8 @@ public class LabCleaner {
 			}
 					
 			new PantallaInicial();
-			new Login();
+			//new Login();
+			new LoginAlternativo();
 			
 		} else {
 			

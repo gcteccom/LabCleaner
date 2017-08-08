@@ -1,6 +1,7 @@
 package Vista;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -15,7 +16,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
-
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -33,13 +33,11 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.exception.ConstraintViolationException;
-
 import TablasBD.HibernateUtil;
 import TablasBD.UsuariosLogin;
 
@@ -50,6 +48,7 @@ public class PanelConfiguracion extends JPanel {
 	//Declaramos los distintos paneles a utilizar y los botones
 	private JPanel panel_usuario, panel_impresora, panel_grafico, panel_bd;
 	private JButton nuevo, modificar, eliminar, imprimir, backup, grafico, rutas;
+	private String ruta;
 	//Constructor de la clase
 	public PanelConfiguracion(){
 		//Desactivamos y activamos los botones correspondientes
@@ -237,7 +236,11 @@ public class PanelConfiguracion extends JPanel {
 				
 				generarBackUp();
 			
-			} 
+			} else if(e.getSource().equals(rutas)) {
+				
+				establecerCarpetas();
+				
+			}
 						
 		}
 				
@@ -765,6 +768,101 @@ public class PanelConfiguracion extends JPanel {
                         
             }
            		
+	}
+	
+	public void establecerCarpetas() {
+				
+		//Creamos un panel de dialogo y lo configuramos
+		JDialog panel=new JDialog(VentanaPrincipal.getFrame(), "Establecer rutas para guardar documentos", true);
+		panel.setLayout(new FlowLayout(FlowLayout.LEFT, 10,30));
+		panel.setSize(500, 200);
+		panel.setLocationRelativeTo(VentanaPrincipal.getFrame());
+		panel.setIconImage(new ImageIcon(getClass().getResource("/Recursos/ico_carpeta.png")).getImage());
+		
+		JTextField etiquetaRuta = new JTextField();
+		etiquetaRuta.setEditable(false);
+		etiquetaRuta.setPreferredSize(new Dimension(420, 30));
+		
+		JButton elegir = new JButton("...");
+		elegir.setPreferredSize(new Dimension(30,30));
+		elegir.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+								
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				int op=fileChooser.showSaveDialog(panel);
+				
+				if (op==JFileChooser.APPROVE_OPTION) {
+					
+					ruta = fileChooser.getSelectedFile().getAbsolutePath();
+					//ruta = ruta.replace('\'', '\\');
+					etiquetaRuta.setText(ruta);
+					
+				}
+				
+			}
+		
+		});
+		
+		Component horizontalGlue = Box.createHorizontalGlue();
+		horizontalGlue.setPreferredSize(new Dimension(180, 0));
+		
+		JButton aceptar = new JButton("Aceptar");
+		aceptar.setPreferredSize(new Dimension(80,40));
+		aceptar.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				if(!etiquetaRuta.getText().isEmpty()) {
+				
+					Properties prop = new Properties();
+				    
+					try {
+						
+						File directorioTicket = new File(ruta + "/Tickets");
+						File directorioBalanceDia = new File(ruta + "/Balance del dia");
+						File directorioBalanceGeneral = new File(ruta + "/Balance General");
+						File directorioPorFecha = new File(ruta + "/Reportes por fecha");
+						directorioTicket.mkdirs();
+						directorioBalanceDia.mkdirs();
+						directorioBalanceGeneral.mkdirs();
+						directorioPorFecha.mkdirs();
+					   	prop.load(new FileInputStream("src/Recursos.properties"));
+					   	prop.setProperty("ruta.ticket", etiquetaRuta.getText());
+					   	prop.setProperty("balance.dia", etiquetaRuta.getText());
+					   	prop.setProperty("balance.general", etiquetaRuta.getText());
+					   	prop.setProperty("reporte.fecha", etiquetaRuta.getText());
+					   	OutputStream os = new FileOutputStream("src/Recursos.properties");
+					   	prop.store(os, null);
+					   	os.close();
+					   	JOptionPane.showMessageDialog(null, "Se ha modificado correctamente la ruta");
+					   	panel.dispose();
+					   					
+					} catch (Exception ex) {
+						
+						ex.printStackTrace();
+						
+					}
+				
+				} else {
+					
+					JOptionPane.showMessageDialog(null, "No hay ninguna ruta selecciona");
+				
+				}
+			
+			}
+					
+		});
+		
+		panel.add(etiquetaRuta);
+		panel.add(elegir);
+		panel.add(horizontalGlue);
+		panel.add(aceptar);
+		panel.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		panel.setVisible(true);
+			
+		
 	}
 	//Funcion para restaurar la base de datos
 	/*private void restaurarBD(){

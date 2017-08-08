@@ -543,8 +543,12 @@ public class PanelSalidas extends JPanel {
 	        			
 	        			int row=tabla_factura.getSelectedRow();
 	        			
-	        			ticket.setText(tabla_factura.getValueAt(row, 0).toString());
-	        			buscarFactura();
+	        			if(row > -1){
+	        			
+		        			ticket.setText(tabla_factura.getValueAt(row, 0).toString());
+		        			buscarFactura();
+	        			
+	        			}
 	        			        			
 	        		}
 	        		//Si hacemos doble click vuelca los datos y cierra la ventana	        		
@@ -552,9 +556,13 @@ public class PanelSalidas extends JPanel {
 	        			
 	        			int row=tabla_factura.getSelectedRow();
 	        			
-	        			ticket.setText(tabla_factura.getValueAt(row, 0).toString());
-	        			buscarFactura();
-	        			cerrar();
+	        			if(row > -1) {
+	        			
+		        			ticket.setText(tabla_factura.getValueAt(row, 0).toString());
+		        			buscarFactura();
+		        			cerrar();
+	        			
+	        			}
 	        			        			
 	        		}
 	        		

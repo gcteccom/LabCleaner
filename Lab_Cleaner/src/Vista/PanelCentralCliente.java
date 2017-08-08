@@ -470,6 +470,7 @@ public class PanelCentralCliente extends JPanel{
 			}catch(Exception e){
 				
 				JOptionPane.showMessageDialog(null, "Error al crear cliente");
+				e.printStackTrace();
 				
 			}
 		
