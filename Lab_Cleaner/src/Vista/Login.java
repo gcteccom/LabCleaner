@@ -194,7 +194,7 @@ public class Login extends JFrame {
 			
 			if(usuario.equals(rs.getString("usuario")) && clave.equals(rs.getString("pass"))){
 				//Si coincidiera alguna llamamos a la clase VentanaPrincipal y pasamos el tipo de acceso por parametro, cerramos el login
-				new VentanaPrincipal(rs.getInt("acceso"));
+				//new VentanaPrincipal(rs.getInt("acceso"));
 				loginOK=true;
 				cerrarLogin();
 										

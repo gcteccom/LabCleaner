@@ -5,15 +5,14 @@ import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-
 import Controlador.CajaInicial;
 import TablasBD.Factura;
 import TablasBD.HibernateUtil;
+import TablasBD.UsuariosLogin;
 
 //Clase encargada de llevar la gestion de la ventana principal, hereda de JFrame
 @SuppressWarnings("rawtypes")
@@ -27,12 +26,14 @@ public class VentanaPrincipal extends JFrame{
 	private JLabel logo, fecha, autor;
 	int acceso;
 	private static JFrame miframe;
+	private UsuariosLogin usuarioLogin;
 	
 	//Constructor de la clase, recibe un entero por parametro que indica el tipo de acceso
 	
-	public VentanaPrincipal(int acceso){
+	public VentanaPrincipal(int acceso, UsuariosLogin usuarioLogin){
 		//establecemos datos de la ventana
 		this.acceso=acceso;
+		this.usuarioLogin=usuarioLogin;
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setUndecorated(true);
 		this.setLayout(new BorderLayout());
@@ -94,7 +95,7 @@ public class VentanaPrincipal extends JFrame{
 		fecha.setPreferredSize(new Dimension(650,40));
 		panel_sur.add(fecha);
 		//Label del nombre de la compañia, establecemos el tamaño y lo agregamos al panel sur
-		autor=new JLabel("Lab-Cleaner, Sistema de Lavanderia - Version 1.0.1 - Creador: Jaime Gómez");
+		autor=new JLabel("Lab-Cleaner, Sistema de Lavanderia - Version 1.0.1 - Creador: Jaime Gómez                               Usuario: " + usuarioLogin.getUsuario());
 		autor.setPreferredSize(new Dimension(700, 40));
 		panel_sur.add(autor);
 		//Creamos un objeto de la clase Accion que implementa la interfaz ActionListener
@@ -126,7 +127,7 @@ public class VentanaPrincipal extends JFrame{
 		gestion_perchero.addActionListener(botonact);
 		
 		//Aqui establecemos la primera pantalla inicial el panel de ventas
-		panel_ventas=new PanelVentas(this.acceso);
+		panel_ventas=new PanelVentas(this.acceso, usuarioLogin);
 		setPanelCentral(panel_ventas);
 		//Abrimos session, vamos a comprobar si es la primera vez que se loguea para pedir los datos iniciales de caja
 		SessionFactory sesion=HibernateUtil.getSessionFactory();
@@ -142,7 +143,7 @@ public class VentanaPrincipal extends JFrame{
 		//Si el tamaño de la lista es 0, significa que es la primera vez, entonces llamamos a la clase CajaInicial
 		if(entrada_caja.size()==0){
 			
-			new CajaInicial();
+			new CajaInicial(usuarioLogin);
 						
 		}
 				
@@ -189,7 +190,7 @@ public class VentanaPrincipal extends JFrame{
 			} else if (e.getSource().equals(Ventas)){
 				
 				removePanel();
-				panel_ventas=new PanelVentas(acceso);
+				panel_ventas=new PanelVentas(acceso, usuarioLogin);
 				setPanelCentral(panel_ventas);
 				
 			//Si pulsamos en salida_factura, removemos el panel anterior y establecemos el panel de salidas	
@@ -243,7 +244,7 @@ public class VentanaPrincipal extends JFrame{
 	//Funcion para reiniciar la aplicacion, llama nuevamente al login y cierra la ventana principal
 	private void reiniciarAplicacion(){
 		
-		new Login();
+		new LoginAlternativo();
 		this.dispose();
 		
 		

@@ -17,6 +17,7 @@ import org.hibernate.Transaction;
 import TablasBD.Clientes;
 import TablasBD.Factura;
 import TablasBD.HibernateUtil;
+import TablasBD.UsuariosLogin;
 import Vista.VentanaPrincipal;
 
 //Clase para introducir la cantidad inicial de la caja, cuando la aplicacion de abre por primera vez en el dia
@@ -26,15 +27,17 @@ public class CajaInicial extends JDialog {
 	private JLabel titulo;
 	private JTextField campo_numero;
 	private JButton aceptar;
+	private UsuariosLogin usuarioLogin;
 	
 	//Constructor de la clase
-	public CajaInicial(){
+	public CajaInicial(UsuariosLogin usuarioLogin){
 		//Configuramos la pantalla
 		super(VentanaPrincipal.getFrame(), "CAJA", true);
 		this.setSize(400, 200);
 		this.setLocationRelativeTo(VentanaPrincipal.getFrame());
 		this.setResizable(false);
 		this.setLayout(null);
+		this.usuarioLogin=usuarioLogin;
 		//Llamamos a la funcion init que establece los componentes
 		init();
 		
@@ -131,7 +134,7 @@ public class CajaInicial extends JDialog {
 				//Cargamos el cliente
 				Clientes cliente=(Clientes)session.get(Clientes.class, "Caja");
 				//Introducimos los datos de la operacion
-				Factura factura=new Factura(cliente,fecha,fecha,fecha,0,0,total,true);
+				Factura factura=new Factura(usuarioLogin,cliente,fecha,fecha,fecha,0,0,total,true);
 				//Guardamos cambios
 				session.save(factura);
 				

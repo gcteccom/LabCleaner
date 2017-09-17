@@ -5,10 +5,8 @@ import java.awt.Toolkit;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
-
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-
 import Vista.LoginAlternativo;
 import Vista.PantallaInicial;
 

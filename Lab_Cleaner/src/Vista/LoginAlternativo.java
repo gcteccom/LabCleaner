@@ -63,7 +63,7 @@ public class LoginAlternativo {
 		frame.getContentPane().add(panel, BorderLayout.NORTH);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("E:\\workspace\\Lab_Cleaner\\src\\Recursos\\VentanaPrincipal.jpg"));
+		lblNewLabel.setIcon(new ImageIcon(LoginAlternativo.class.getResource("/Recursos/VentanaPrincipal.jpg")));
 		panel.add(lblNewLabel);
 		
 		JPanel panel_1 = new JPanel();
@@ -158,7 +158,7 @@ public class LoginAlternativo {
 			
 			if(usuarioLogin.getPass().equals(pass)) {
 				
-				new VentanaPrincipal(usuarioLogin.getAcceso());
+				new VentanaPrincipal(usuarioLogin.getAcceso(), usuarioLogin);
 				frame.dispose();
 				
 			} else {

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 25-jul-2017 18:49:21 by Hibernate Tools 3.5.0.Final -->
+<!-- Generated 09-ago-2017 11:57:13 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
     <class name="TablasBD.Servicio" table="servicio" catalog="labcleaner">
         <id name="id" type="int">

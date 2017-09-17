@@ -5,7 +5,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class Utils {
 	
-public static String encriptacionMD5(String textoPlano){
+	public static String encriptacionMD5(String textoPlano){
 	    
 		try{
 	       

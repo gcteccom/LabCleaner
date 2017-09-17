@@ -36,6 +36,7 @@ import TablasBD.Clientes;
 import TablasBD.Factura;
 import TablasBD.HibernateUtil;
 import TablasBD.Perchero;
+import TablasBD.UsuariosLogin;
 
 
 //Clase que se encarga del cobro de la factura
@@ -53,12 +54,14 @@ public class GestionCobro extends JDialog {
 	private JButton aceptar, aceptar_2;
 	private boolean resultado;
 	private Factura factura;
+	private UsuariosLogin usuarioLogin;
 	//Constructor de la clase, recibe por parametro el dni del cliente, la cantidad total de prendas, cantidad total de perchas y los percheros seleccinados
-	public GestionCobro(String dni, int cantidad_prendas, int cantidad_perchas, float total_factura, ArrayList<String> perchas_asignadas){
+	public GestionCobro(UsuariosLogin usuarioLogin, String dni, int cantidad_prendas, int cantidad_perchas, float total_factura, ArrayList<String> perchas_asignadas){
 		//Llamamos al constructor padre 
 		super(VentanaPrincipal.getFrame(), "Cobrar", true);
 		//Establecemos los valores de las diferentes variables
 		this.dni=dni;
+		this.usuarioLogin = usuarioLogin;
 		prendas=cantidad_prendas;
 		perchas=cantidad_perchas;
 		total=total_factura;
@@ -232,14 +235,14 @@ public class GestionCobro extends JDialog {
 			if(e.getSource().equals(aceptar)){
 				
 				generarFactura();
-				GenerarTicket ticket=new GenerarTicket(id_factura, pagar_ahora.isSelected(), perchas_asignadas, efectivo_pagado.getText(),t_devuelta.getText());
+				GenerarTicket ticket=new GenerarTicket(usuarioLogin.getUsuario(), id_factura, pagar_ahora.isSelected(), perchas_asignadas, efectivo_pagado.getText(),t_devuelta.getText());
 				ticket.print();
 				new VisualizarPerchas();
 			//Sino hacemos todo menos generamos la factura					
 			} else if(e.getSource().equals(aceptar_2)){
 				
 				generarFactura();
-				GenerarTicket ticket=new GenerarTicket(id_factura, pagar_ahora.isSelected(), perchas_asignadas, efectivo_pagado.getText(),t_devuelta.getText());
+				GenerarTicket ticket=new GenerarTicket(usuarioLogin.getUsuario(), id_factura, pagar_ahora.isSelected(), perchas_asignadas, efectivo_pagado.getText(),t_devuelta.getText());
 				ticket.show();
 				new VisualizarPerchas();
 								
@@ -261,11 +264,11 @@ public class GestionCobro extends JDialog {
 		//Comprobamos si el cliente ha hecho el pago ahora o no
 		if(pagar_ahora.isSelected()){
 		
-			factura=new Factura(cliente, fecha, fecha, prendas, perchas, total, pagar_ahora.isSelected());
+			factura=new Factura(usuarioLogin, cliente, fecha, fecha, prendas, perchas, total, pagar_ahora.isSelected());
 		
 		} else {
 		
-			factura=new Factura(cliente, fecha, null,prendas, perchas, total, pagar_ahora.isSelected());
+			factura=new Factura(usuarioLogin, cliente, fecha, null,prendas, perchas, total, pagar_ahora.isSelected());
 			
 		}
 		//Guardamos cambios		

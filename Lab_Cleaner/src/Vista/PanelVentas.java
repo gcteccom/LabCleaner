@@ -7,6 +7,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -36,6 +38,7 @@ import TablasBD.Clientes;
 import TablasBD.Factura;
 import TablasBD.HibernateUtil;
 import TablasBD.Servicio;
+import TablasBD.UsuariosLogin;
 
 
 //Clase encargada del panel de ventas
@@ -54,11 +57,13 @@ public class PanelVentas extends JPanel {
     private int acceso,cantidad_total=0,resultado_perchero=0;
     Ventana_Perchero o_perchero;
     private float total;
+    private UsuariosLogin usuarioLogin;
     
 	//Iniciamos con el constructo, recibe por parameto el tipo de acceso		
-	public PanelVentas(int acceso){
+	public PanelVentas(int acceso, UsuariosLogin usuarioLogin){
 		//Establecemos los valores
     	this.acceso=acceso;
+    	this.usuarioLogin = usuarioLogin;
 		this.setLayout(new BorderLayout());
 		this.setBackground(Color.WHITE);
 		//Fuente principal a utilizar
@@ -84,6 +89,12 @@ public class PanelVentas extends JPanel {
 		//Agregamos los label y los campos de textos
 		agregarLabel("NIF: ");
 		dni=agregarTexto(250,35);
+		dni.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				dni.setBackground(new Color(255,255,255));
+			}
+		});
 		panel_norte.add(buscar);
 		panel_norte.add(buscar_nuevo);
 		agregarLabel("Nombre: ");
@@ -377,11 +388,12 @@ public class PanelVentas extends JPanel {
 			//Si no existe mostramos  el error
 			if(cliente==null){
 				
-				JOptionPane.showMessageDialog(null, "Ese cliente no existe");
-				dni.setText("");
+				dni.setBackground(new Color(235,117,117));
+				
 			//Si existe volcamos los datos a los campos correspondiente			
 			} else {
-			
+				
+				dni.setBackground(new Color(255,255,255));
 				dni.setEditable(false);
 				buscar.setEnabled(false);
 				buscar_nuevo.setEnabled(true);
@@ -474,7 +486,7 @@ public class PanelVentas extends JPanel {
 						//Que cantidad sea igual a perchero
 						if(cantidad_total==resultado_perchero){
 							//Si todo es correcto llamamos a la clase GestionCobro que es la encargada de cobrar							
-							GestionCobro cobrar=new GestionCobro(dni.getText(), cantidad_total, resultado_perchero, total, o_perchero.getCheck());
+							GestionCobro cobrar=new GestionCobro(usuarioLogin, dni.getText(), cantidad_total, resultado_perchero, total, o_perchero.getCheck());
 							//Si todo ha ido bien, borrar todos los datos del panel de venta
 							if(cobrar.isResultado()){
 								
@@ -528,7 +540,7 @@ public class PanelVentas extends JPanel {
 												
 				} else {
 				
-				JOptionPane.showMessageDialog(null, "Introduzca los datos del  cliente");
+				dni.setBackground(new Color(235,117,117));
 								
 				}
 			//Si presionamos en entrada hacemos lo siguiente			
@@ -545,10 +557,10 @@ public class PanelVentas extends JPanel {
 					Session session=sesion.openSession();
 					Transaction tx=session.beginTransaction();
 					//Cargamos el cliente nulo y la fecha
-					Clientes cliente=(Clientes)session.get(Clientes.class, "nulo");
+					Clientes cliente=(Clientes)session.get(Clientes.class, "caja");
 					java.util.Date fecha=new java.util.Date();
 					//Ingresamos datos a la tabla factura
-					Factura factura=new Factura(cliente, fecha, fecha,fecha, 0, 0, ingreso, true);
+					Factura factura=new Factura(usuarioLogin, cliente, fecha, fecha,fecha, 0, 0, ingreso, true);
 					//Guardamos cambios
 					session.save(factura);
 															
@@ -556,13 +568,18 @@ public class PanelVentas extends JPanel {
 					//Si todo ha ido bien mostramos por pantalla
 					JOptionPane.showMessageDialog(VentanaPrincipal.getFrame(), "Cantidad ingresada correctamente");
 												
-				}catch(NumberFormatException ex){
+				} catch(NumberFormatException ex){
 					
 					JOptionPane.showMessageDialog(VentanaPrincipal.getFrame(), "Cantida ingresada no es valida");
+					
+				} catch (NullPointerException ex) {
+					
+					ex.printStackTrace();
 					
 				} catch(Exception ex){
 					
 					JOptionPane.showMessageDialog(VentanaPrincipal.getFrame(), "Error, no se pudo completar la operacion");
+					ex.printStackTrace();
 					
 				}
 				
@@ -581,10 +598,10 @@ public class PanelVentas extends JPanel {
 					Session session=sesion.openSession();
 					Transaction tx=session.beginTransaction();
 					
-					Clientes cliente=(Clientes)session.get(Clientes.class, "nulo");
+					Clientes cliente=(Clientes)session.get(Clientes.class, "caja");
 					java.util.Date fecha=new java.util.Date();
 					
-					Factura factura=new Factura(cliente, fecha,fecha,fecha, 0, 0, ingreso, true);
+					Factura factura=new Factura(usuarioLogin, cliente, fecha,fecha,fecha, 0, 0, ingreso, true);
 					
 					session.save(factura);
 															
@@ -592,13 +609,18 @@ public class PanelVentas extends JPanel {
 					
 					JOptionPane.showMessageDialog(VentanaPrincipal.getFrame(), "Cantidad retirada correctamente");
 												
-				}catch(NumberFormatException ex){
+				} catch (NumberFormatException ex){
 					
 					JOptionPane.showMessageDialog(VentanaPrincipal.getFrame(), "Cantida ingresada no es valida");
 					
-				} catch(Exception ex){
+				} catch (NullPointerException ex) {
+					
+					ex.printStackTrace();
+					
+				} catch (Exception ex){
 					
 					JOptionPane.showMessageDialog(VentanaPrincipal.getFrame(), "Error, no se pudo completar la operacion");
+					ex.printStackTrace();
 					
 				}
 				

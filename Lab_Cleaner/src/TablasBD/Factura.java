@@ -1,5 +1,5 @@
 package TablasBD;
-// Generated 25-jul-2017 18:49:21 by Hibernate Tools 3.5.0.Final
+// Generated 09-ago-2017 11:57:13 by Hibernate Tools 3.5.0.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -12,6 +12,7 @@ import java.util.Set;
 public class Factura implements java.io.Serializable {
 
 	private Integer id;
+	private UsuariosLogin usuariosLogin;
 	private Clientes clientes;
 	private Date fecha;
 	private Date fechaPago;
@@ -25,7 +26,8 @@ public class Factura implements java.io.Serializable {
 	public Factura() {
 	}
 
-	public Factura(Clientes clientes, Date fecha, Date fechaPago, int prendas, int perchas, float total, boolean estado) {
+	public Factura(UsuariosLogin usuariosLogin, Clientes clientes, Date fecha, Date fechaPago, int prendas, int perchas, float total, boolean estado) {
+		this.usuariosLogin = usuariosLogin;
 		this.clientes = clientes;
 		this.fecha = fecha;
 		this.fechaPago = fechaPago;
@@ -35,7 +37,9 @@ public class Factura implements java.io.Serializable {
 		this.estado = estado;
 	}
 
-	public Factura(Clientes clientes, Date fecha, Date fechaPago, Date fechaEntrega, int prendas, int perchas, float total, boolean estado) {
+	public Factura(UsuariosLogin usuariosLogin, Clientes clientes, Date fecha, Date fechaPago, Date fechaEntrega,
+			int prendas, int perchas, float total, boolean estado) {
+		this.usuariosLogin = usuariosLogin;
 		this.clientes = clientes;
 		this.fecha = fecha;
 		this.fechaPago = fechaPago;
@@ -53,6 +57,14 @@ public class Factura implements java.io.Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public UsuariosLogin getUsuariosLogin() {
+		return this.usuariosLogin;
+	}
+
+	public void setUsuariosLogin(UsuariosLogin usuariosLogin) {
+		this.usuariosLogin = usuariosLogin;
 	}
 
 	public Clientes getClientes() {

@@ -11,7 +11,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Properties;
-
 import javax.swing.JTable;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -32,7 +31,8 @@ import TablasBD.Clientes;
 import TablasBD.Factura;
 import TablasBD.HibernateUtil;
 import Vista.PanelVentas;
-//Funcion para generar el ticket de venta
+
+//Clase para generar el ticket de venta
 public class GenerarTicket {
 	//Declaramos la variables
 	private int id_factura;
@@ -44,8 +44,9 @@ public class GenerarTicket {
 	private String pagado, devuelta;
 	private Clientes cliente;
 	private Properties prop;
+	private String usuario;
 	//Contructor de la clase, recibe el id de la factura, si esta pagada o no, el arraylist de las perchas asignandas, el monto pagado y el monto devuelto
-	public GenerarTicket(int id_factura, boolean estado, ArrayList<String> perchas_asignadas, String pagado, String devuelta){
+	public GenerarTicket(String usuario, int id_factura, boolean estado, ArrayList<String> perchas_asignadas, String pagado, String devuelta){
 		//Iniciamos las variables y llamamos a la clase estatica getDatosTabla para saber las descripcion de los servicios
 		this.id_factura=id_factura;
 		tabla_factura=PanelVentas.getDatosTabla();
@@ -53,6 +54,7 @@ public class GenerarTicket {
 		this.perchas_asignadas=perchas_asignadas;
 		this.pagado=pagado;
 		this.devuelta=devuelta;
+		this.usuario = usuario;
 		//Llamamos a la fucion generarTicket que inicializa todo
 		generarTicket();
 		
@@ -223,7 +225,7 @@ public class GenerarTicket {
 			
 			for(String str: perchas_asignadas){
 				
-				Chunk linea=new Chunk(str + ",", header);
+				Chunk linea=new Chunk(str + "-", header);
 				ticket.add(linea);
 								
 			}
@@ -239,11 +241,15 @@ public class GenerarTicket {
 			parrafo=new Paragraph("LabCleaner - Un nuevo concepto de Lavanderia", header);
 			parrafo.setAlignment(Element.ALIGN_CENTER);
 			ticket.add(parrafo);
+			
+			parrafo=new Paragraph("\nLe atendio: " + usuario, header);
+			parrafo.setAlignment(Element.ALIGN_CENTER);
+			ticket.add(parrafo);
+			
 			//Cerramos ticket			           
 			ticket.close();
 			//Cerramos el flujo
 			ficheroPdf.close();
-			//Abrimos archivo
 			
 			tx.commit();
 			
